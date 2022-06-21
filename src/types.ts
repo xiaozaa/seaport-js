@@ -32,6 +32,12 @@ export type SeaportConfig = {
   };
 };
 
+export type GasSetting = {
+  maxFeePerGas: string;
+  maxPriorityFeePerGas: string;
+  gasLimit: number;
+};
+
 export type OfferItem = {
   itemType: ItemType;
   token: string;

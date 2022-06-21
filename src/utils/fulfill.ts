@@ -23,6 +23,7 @@ import type {
   OrderStatus,
   OrderUseCase,
   ContractMethodReturnType,
+  GasSetting,
 } from "../types";
 import { getApprovalActions } from "./approval";
 import {
@@ -49,6 +50,13 @@ import {
   totalItemsAmount,
 } from "./order";
 import { executeAllActions, getTransactionMethods } from "./usecase";
+
+interface GasAdjustSetting {
+  value: BigNumber;
+  maxFeePerGas?: string;
+  maxPriorityFeePerGas?: string;
+  gasLimit?: number;
+}
 
 /**
  * We should use basic fulfill order if the order adheres to the following criteria:
@@ -187,6 +195,7 @@ export async function fulfillBasicOrder({
   offererOperator,
   fulfillerOperator,
   signer,
+  gasSetting,
   tips = [],
   conduitKey = NO_CONDUIT,
 }: {
@@ -198,6 +207,7 @@ export async function fulfillBasicOrder({
   offererOperator: string;
   fulfillerOperator: string;
   signer: providers.JsonRpcSigner;
+  gasSetting: GasSetting;
   tips?: ConsiderationItem[];
   conduitKey: string;
 }): Promise<
@@ -280,7 +290,28 @@ export async function fulfillBasicOrder({
     zoneHash: order.parameters.zoneHash,
   };
 
-  const payableOverrides = { value: totalNativeAmount };
+  var payableOverrides: GasAdjustSetting = {
+    value: totalNativeAmount,
+  };
+
+  if (gasSetting.maxFeePerGas) {
+    payableOverrides = {
+      ...payableOverrides,
+      maxFeePerGas: gasSetting.maxFeePerGas,
+    };
+  }
+  if (gasSetting.maxPriorityFeePerGas) {
+    payableOverrides = {
+      ...payableOverrides,
+      maxPriorityFeePerGas: gasSetting.maxPriorityFeePerGas,
+    };
+  }
+  if (gasSetting.maxFeePerGas) {
+    payableOverrides = {
+      ...payableOverrides,
+      maxFeePerGas: gasSetting.maxFeePerGas,
+    };
+  }
 
   const approvalActions = await getApprovalActions(
     insufficientApprovals,
@@ -323,6 +354,7 @@ export async function fulfillStandardOrder({
   conduitKey,
   recipientAddress,
   signer,
+  gasSetting,
 }: {
   order: Order;
   unitsToFill?: BigNumberish;
@@ -341,6 +373,7 @@ export async function fulfillStandardOrder({
   recipientAddress: string;
   timeBasedItemParams: TimeBasedItemParams;
   signer: providers.JsonRpcSigner;
+  gasSetting: GasSetting;
 }): Promise<
   OrderUseCase<
     ExchangeAction<
@@ -412,7 +445,28 @@ export async function fulfillStandardOrder({
     fulfillerOperator,
   });
 
-  const payableOverrides = { value: totalNativeAmount };
+  var payableOverrides: GasAdjustSetting = {
+    value: totalNativeAmount,
+  };
+
+  if (gasSetting.maxFeePerGas) {
+    payableOverrides = {
+      ...payableOverrides,
+      maxFeePerGas: gasSetting.maxFeePerGas,
+    };
+  }
+  if (gasSetting.maxPriorityFeePerGas) {
+    payableOverrides = {
+      ...payableOverrides,
+      maxPriorityFeePerGas: gasSetting.maxPriorityFeePerGas,
+    };
+  }
+  if (gasSetting.maxFeePerGas) {
+    payableOverrides = {
+      ...payableOverrides,
+      maxFeePerGas: gasSetting.maxFeePerGas,
+    };
+  }
 
   const approvalActions = await getApprovalActions(
     insufficientApprovals,
