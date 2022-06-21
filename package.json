@@ -1,16 +1,16 @@
 {
   "name": "@opensea/seaport-js-gas-adjust",
   "version": "1.0.1",
-  "description": "[Seaport](https://github.com/ProjectOpenSea/seaport) is a new marketplace protocol for safely and efficiently buying and selling NFTs. This is a JavaScript library intended to make interfacing with the contract reasonable and easy.",
+  "description": "[Seaport](https://github.com/xiaozaa/seaport) is a new marketplace protocol for safely and efficiently buying and selling NFTs. This is a JavaScript library intended to make interfacing with the contract reasonable and easy.",
   "license": "MIT",
   "author": "OpenSea Developers",
-  "homepage": "https://github.com/ProjectOpenSea/seaport-js#readme",
+  "homepage": "https://github.com/xiaozaa/seaport-js#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ProjectOpenSea/seaport-js.git"
+    "url": "git+https://github.com/xiaozaa/seaport-js.git"
   },
   "bugs": {
-    "url": "https://github.com/ProjectOpenSea/seaport-js/issues"
+    "url": "https://github.com/xiaozaa/seaport-js/issues"
   },
   "main": "lib/index.js",
   "files": [
